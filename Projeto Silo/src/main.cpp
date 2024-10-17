@@ -18,7 +18,7 @@ void loop() {
   potValue = analogRead(potPin);
   Serial.println(potValue);
   delay(500);
-  if (potValue >= 0 && potValue <= 1000)
+  if (potValue >= 500 && potValue <= 1000)
   {
     digitalWrite(LED_VERDE, HIGH);
     Serial.println("Led Verde acesso!");
@@ -28,9 +28,15 @@ void loop() {
     digitalWrite(LED_AMARELO, HIGH);
     Serial.println("Led Amarelo acesso!");
   }
-  else 
+  else if (potValue >= 2001)
   {
     digitalWrite(LED_VERMELHO, HIGH);
     Serial.println("Led Vermelho acesso!");
+  }
+  else
+  {
+    digitalWrite(LED_AMARELO, LOW);
+    digitalWrite(LED_VERDE, LOW);
+    digitalWrite(LED_VERMELHO, LOW);
   }
 }
