@@ -52,9 +52,15 @@ void loop() {
 //Rev2: 28-08-2023 Ajustes para o funcionamento no FIWARE Descomplicado
 //Autor Rev2: Fábio Henrique Cabrini
 
+#include <arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h> // Importa a Biblioteca PubSubClient
  
+const int potPin = 34;
+#define LED_VERDE 2
+#define LED_AMARELO 4
+int potValue = 0;
+
 //defines:
 //defines de id mqtt e tópicos para publicação e subscribe denominado TEF(Telemetria e Monitoramento de Equipamentos)
 #define TOPICO_SUBSCRIBE    "/TEF/device001/cmd"      //tópico MQTT de escuta
@@ -73,11 +79,11 @@ void loop() {
                                 
 
 // WIFI
-const char* SSID = "Pedro's Galaxy A12"; // SSID / nome da rede WI-FI que deseja se conectar
-const char* PASSWORD = "cccpe245876"; // Senha da rede WI-FI que deseja se conectar
+const char* SSID = "POCO F5"; // SSID / nome da rede WI-FI que deseja se conectar
+const char* PASSWORD = "senha1234"; // Senha da rede WI-FI que deseja se conectar
   
 // MQTT
-const char* BROKER_MQTT = "44.202.134.56"; //URL do broker MQTT que se deseja utilizar
+const char* BROKER_MQTT = "34.203.196.154"; //URL do broker MQTT que se deseja utilizar
 int BROKER_PORT = 1883; // Porta do Broker MQTT
  
 int D4 = 2;
@@ -193,6 +199,8 @@ void reconnectMQTT()
         if (MQTT.connect(ID_MQTT)) 
         {
             Serial.println("Conectado com sucesso ao broker MQTT!");
+            digitalWrite(LED_VERDE, HIGH);
+
             MQTT.subscribe(TOPICO_SUBSCRIBE); 
         } 
         else
@@ -225,6 +233,7 @@ void reconectWiFi()
     Serial.println();
     Serial.print("Conectado com sucesso na rede ");
     Serial.print(SSID);
+    digitalWrite(LED_AMARELO, HIGH);
     Serial.println("IP obtido: ");
     Serial.println(WiFi.localIP());
 }
