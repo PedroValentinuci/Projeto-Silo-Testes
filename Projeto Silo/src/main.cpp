@@ -40,7 +40,7 @@ void setup() {
     delay(5000);
     MQTT.publish(TOPICO_PUBLISH, "s|off");
 }
-  
+
 
 void initSerial() {
     Serial.begin(9600);
@@ -176,13 +176,8 @@ void loop() {
     VerificaConexoesWiFIEMQTT();
     EnviaEstadoOutputMQTT();
 
-    //luminosidade
-    int sensorValue = analogRead(SinalSensor);   // Ler o pino Analógico onde está o LDR, lembrando que o divisor de tensão é Vin = Vout (R2/(R1 + R2))
-    float voltage = sensorValue * (3.3 / 4096.0);   // Converter a leitura analógica (que vai de 0 - 1023) para uma voltagem (0 - 3.3V), quanto de acordo com a intensidade de luz no LDR a voltagem diminui.
-    float value_potentiometer = map(sensorValue, 0, 4095, 0, 100); // Normalizar o valor da luminosidade entre 0% e 100%
-    Serial.print("Voltage: ");
-    Serial.print(voltage);
-    Serial.print("V - ");
+    int sensorValue = analogRead(SinalSensor);
+    float value_potentiometer = map(sensorValue, 0, 4095, 0, 100);
     Serial.print("Value potentiometer: ");
     Serial.print(value_potentiometer);
     Serial.println("%");
