@@ -1,0 +1,30 @@
+#include <HardwareSerial.h>
+
+//Variáveis e objetos globais
+char EstadoSaida = '0';
+  
+//Prototypes
+void initSerial();
+void InitOutput(void);
+ 
+//Programa
+void setup() {
+    initSerial();
+    initWiFi();
+    delay(5000);
+}
+
+HardwareSerial SerialPort(2);
+
+void initSerial() {
+  SerialPort.begin(15200, SERIAL_8N1, 16, 17);
+}
+
+//programa principal
+void loop() {   
+    const int SinalSensor = 34;
+    
+    int sensorValue = analogRead(SinalSensor);
+    float value_potentiometer = map(sensorValue, 0, 4095, 0, 100);
+    SerialPort.print(value_potentiometer)
+}
